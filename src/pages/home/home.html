@@ -1,14 +1,32 @@
-<ion-header>
-  <ion-navbar>
-    <ion-title>
-      Ionic Blank
-    </ion-title>
-  </ion-navbar>
-</ion-header>
+<ion-content #content>
+  <div class="header-container" #header>
+    <div class="header-image">
+    </div>
+    <div class="header-info">
+      <div class="first">
+        <button>Atras</button>
+      </div>
+      <div class="second">
+        <h1>Nombre</h1>
+      </div>
+    </div>
+    <div class="fixed-header" [ngStyle]="{'height': imageHeight * 0.25 + 'px'}" *ngIf="showFixedHeader">
+      Nombre
+    </div>
+  </div>
 
-<ion-content padding>
-  The world is your oyster.
-  <p>
-    If you get lost, the <a href="http://ionicframework.com/docs/v2">docs</a> will be your guide.
-  </p>
+  <!--
+  <div class="container-info" *ngIf="!showFixedHeader">
+    <ion-title [ngStyle]="{'margin-top': (viewPortWidth - 36) + 'px'}" *ngIf="title" >
+      <h1 class="title-container " [ngClass]="{'moveTitleAbsolute': firstTime, 'moveAbsolute': transitionAbsolute}">{{title}} </h1>
+      <div class="subtitle-container" [ngClass]="{'moveTitleAbsolute': firstTime, 'moveAbsolute': transitionAbsolute}"  *ngIf="subtitle">
+        <img [src]="imgRef" class="subtitle-icon" *ngIf="imgRef"> <span>{{subtitle}}</span>
+      </div>
+    </ion-title>
+  </div>
+  -->
+  <div class="content-info">
+    bla bla bla
+  </div>
+
 </ion-content>
