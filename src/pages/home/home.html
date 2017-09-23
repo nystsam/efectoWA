@@ -1,17 +1,28 @@
 <ion-content #content>
   <div class="header-container" #header>
+
     <div class="header-image">
     </div>
-    <div class="header-info">
-      <div class="first">
-        <button>Atras</button>
-      </div>
-      <div class="second">
-        <h1>Nombre</h1>
+    <div class="header-image-bottom-line"></div>
+    <button class="transition-header-back-button" type="button" #backButton> 
+      <ion-icon name="arrow-back" color="white"></ion-icon>
+    </button>
+    <div class="transition-header">
+      <div class="title">
+        <div class="title-adjuster" #titleAdjuster></div>
+        <h1 #titleText>Nombre</h1>
+        <h2>a</h2>
       </div>
     </div>
+
     <div class="fixed-header" [ngStyle]="{'height': imageHeight * 0.25 + 'px'}" *ngIf="showFixedHeader">
-      Nombre
+      <button class="fixed-header-back-button" type="button"> 
+        <ion-icon name="arrow-back" color="white"></ion-icon>
+      </button>
+      <div class="title">
+        <h1>Nombre</h1>
+        <!--<h2>a</h2>-->
+      </div>
     </div>
   </div>
 
