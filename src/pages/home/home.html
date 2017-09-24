@@ -1,17 +1,21 @@
 <ion-content #content>
   <div class="header-container" #header>
 
-    <div class="header-image">
+    <div class="header-image" [ngStyle]="{background: 'linear-gradient(to bottom, rgba(0,0,0,0.15) 0%,
+                                          rgba(0,0,0,0.1) 10%,rgba(0,0,0,0) 25%, 
+                                          rgba(0,0,0,0) 75%,rgba(0,0,0,0.1) 90%,
+                                          rgba(0,0,0,0.15) 100%), '+ imageUrl + ' 100% 100% / cover no-repeat'}">
     </div>
-    <div class="header-image-bottom-line"></div>
-    <button class="transition-header-back-button" type="button" #backButton> 
+    <div class="header-image-bottom-line">
+    </div>
+    <button class="transition-header-back-button" type="button" #backButtonElement> 
       <ion-icon name="arrow-back" color="white"></ion-icon>
     </button>
     <div class="transition-header">
       <div class="title">
-        <div class="title-adjuster" #titleAdjuster></div>
-        <h1 #titleText>Nombre</h1>
-        <h2>a</h2>
+        <div class="title-adjuster" #titleAdjusterElement></div>
+        <h1 #titleElement>Nombre</h1>
+        <h2 *ngIf="subTitle != null" #subTitleElement>{{subTitle}}</h2>
       </div>
     </div>
 
@@ -21,7 +25,7 @@
       </button>
       <div class="title">
         <h1>Nombre</h1>
-        <!--<h2>a</h2>-->
+        <h2 *ngIf="subTitle != null">{{subTitle}}</h2>
       </div>
     </div>
   </div>

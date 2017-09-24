@@ -9,7 +9,6 @@ page-home {
     }
 
     .header-image{
-        background: linear-gradient(to bottom, rgba(0,0,0,0.15) 0%,rgba(0,0,0,0.1) 10%,rgba(0,0,0,0) 25%,rgba(0,0,0,0) 75%,rgba(0,0,0,0.1) 90%,rgba(0,0,0,0.15) 100%) 100% 100% / cover no-repeat;
         background-color: #ffffff;
     }
 
@@ -46,7 +45,7 @@ page-home {
         height: 25px;
         top: 22px;
         left: 10px;
-        font-size: 24px;
+        font-size: 18px;
         background-color: transparent;
     }
 
@@ -69,9 +68,13 @@ page-home {
         width: 100%;
     }
 
-    .transition-header .title h2, .fixed-header .title h2{
+    .transition-header .title h2{
         margin-top: 10px;
         font-size: 20px;
+    }
+
+    .fixed-header .title h2{
+        font-size:  16px;
     }
 
     .transition-header .title h1, .transition-header .title h2{
@@ -85,7 +88,14 @@ page-home {
     }
 
     .fixed-header .title h1{
-        margin-left: 65px;
-        margin-top: 32px;
+        margin-left: 50px;
+        margin-top: 30.5px;
+        font-size: 18px;
+    }
+
+    .fixed-header .title h2{
+        margin-left: 50px;
+        margin-top: 10.5px;
+        font-size: 16px;
     }
 }

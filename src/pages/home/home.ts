@@ -1,125 +1,179 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { Transition, WidthTransition, ColorTransition, FontTransition, TopTransition } from './transition-classes/transitions';
 
 @Component({
     selector: 'page-home',
     templateUrl: 'home.html'
 })
 export class HomePage {
+    // Es un @Input
+    @ViewChild('content') content;
+
+
+
 
     @ViewChild('header') header;
 
-    @ViewChild('titleAdjuster') titleAdjuster;
+    @ViewChild('titleAdjusterElement') titleAdjuster;
 
-    @ViewChild('titleText') titleText;
+    @ViewChild('titleElement') titleElement;
 
-    @ViewChild('backButton') backButton;
+    @ViewChild('subTitleElement') subTitleElement: ElementRef;
 
-    @ViewChild('content') content;
+    @ViewChild('backButtonElement') backButtonElement;
+
+    public imageUrl: string; // input
+
+    public title: string; // input
+
+    public subTitle: string = null; // input
 
     public imageHeight: number = 0;
+
+    public showFixedHeader: boolean = false;
 
     private opacitiyValue: number = 0;
 
     private lastScrollValue: number = 0;
 
-    private showFixedHeader: boolean = false;
+    private widthTransition: Transition;
+    private titleColorTransition: Transition;
+    private titleFontTransition: Transition;
+    private buttonColorTransition: Transition;
+    private buttonFontTransition: Transition;
+    private buttonTopTransition: Transition;
+    private subTitleColorTransition: Transition;
+    private subTitleFontTransition: Transition;
 
     constructor(
         public navCtrl: NavController
-    ) {}
+    ) {
+        this.subTitle = 'asd';
+     }
 
     ionViewDidLoad(): void {
         this.imageHeight = this.header.nativeElement.firstElementChild.offsetWidth;
-        this.header.nativeElement.firstElementChild.style.backgroundImage = 'url(../assets/public/profile.jpg)';
-        this.backButton.nativeElement.style.top = (this.imageHeight * 0.1) + 3 + 'px';
         this.header.nativeElement.firstElementChild.style.height = this.header.nativeElement.firstElementChild.offsetWidth + 'px';
-        this.content._elementRef.nativeElement.lastChild.addEventListener('scroll', evt => {
-            this.backButtonTransition(evt.target.scrollTop);
-            if( evt.target.scrollTop >= (this.imageHeight * 0.35)){
-                let _max: number = this.imageHeight - 80;
-                let _min: number = Math.round(this.imageHeight * 0.35);
-                let _value: number = (Math.abs(evt.target.scrollTop - _min))/(Math.abs(_max - _min));
-                if(this.lastScrollValue < evt.target.scrollTop){
-                    this.opacitiyValue = 1 - _value;
-                    if(this.opacitiyValue <= 0){
-                        this.opacitiyValue = 0;
-                        this.showFixedHeader = true;
-                    }
-                } else{
-                    this.opacitiyValue =  0 + (1 - _value);
-                    
-                }
-                this.titleTrasition(_value);
-                this.colorTransition(1 - _value, this.titleText);
-                this.colorTransition(1 - _value, this.backButton);
-                this.lastScrollValue = evt.target.scrollTop;
-                this.header.nativeElement.firstElementChild.style.opacity = this.opacitiyValue;
-                if(this.opacitiyValue > 0){
-                    this.showFixedHeader = false;
-                }
-            } else {
-                this.header.nativeElement.firstElementChild.style.opacity = 1;
-                this.titleAdjuster.nativeElement.style.width  = 20 + 'px';
-                this.titleText.nativeElement.style.color = 'rgb(255, 255, 255)';
-                this.backButton.nativeElement.style.color = 'rgb(255, 255, 255)';
+        this.imageUrl = 'url(../assets/public/profile.jpg)';
 
-            }
+        this.createTransitions();
+
+        this.content._elementRef.nativeElement.lastChild.addEventListener('scroll', evt => {
+            this.buttonTopTransition.updateProperty(evt.target.scrollTop);
+            this.headerOpacity(evt.target.scrollTop);
         });
-
-/*
-        this.viewPortWidth = this.header.nativeElement.firstElementChild.offsetWidth;
-        this.arrowTop = ((this.viewPortWidth * 30) /100) - 70 + 'px';
-        this.header.nativeElement.firstElementChild.style.height = this.header.nativeElement.firstElementChild.offsetWidth + 'px';
-        this.content._elementRef.nativeElement.lastChild.addEventListener('scroll', evt => {
-            if (this.header){
-                
-                this.header.nativeElement.firstElementChild.style.opacity = 1 - (evt.target.scrollTop/((this.viewPortWidth*65)/100));
-                this.header.nativeElement.firstElementChild.style.height = this.header.nativeElement.firstElementChild.offsetWidth + 'px';
-            }
-            if ( (this.viewPortWidth - evt.target.scrollTop) <= (this.viewPortWidth * 30) /100 ){
-                this.showFixedHeader = true;
-                this.firstTime = true;
-                setTimeout( () =>{
-                    
-                    this.transition = true;
-                    this.transitionAbsolute = false;
-                }, 50);
-                
-            }else{
-                this.showFixedHeader = false;
-                this.transition = false;
-                if(this.firstTime){
-
-                    setTimeout( () => this.transitionAbsolute = true, 50 );
-                }
-                
-            }
-*/
     }
 
+    /**
+     * 
+     */
+    private headerOpacity(_scrollTop: number): void {
+        if( _scrollTop >= (this.imageHeight * 0.35)){
+            let _max: number = this.imageHeight - 80;
+            let _min: number = Math.round(this.imageHeight * 0.35);
+            let _normalizedValue: number = (Math.abs(_scrollTop - _min))/(Math.abs(_max - _min));
+
+            if(this.lastScrollValue < _scrollTop){
+                this.opacitiyValue = 1 - _normalizedValue;
+                if(this.opacitiyValue <= 0){
+                    this.opacitiyValue = 0;
+                    this.showFixedHeader = true;
+                }
+            } else{
+                this.opacitiyValue =  0 + (1 - _normalizedValue);
+                
+            }
+            this.widthTransition.updateProperty(_normalizedValue);
+            this.titleColorTransition.updateProperty(1 - _normalizedValue);
+            this.titleFontTransition.updateProperty(1 - _normalizedValue);
+            this.buttonColorTransition.updateProperty(1 - _normalizedValue);
+            this.buttonFontTransition.updateProperty(1 - _normalizedValue);
+
+            if(this.subTitle != null){
+                this.subTitleColorTransition.updateProperty(1 - _normalizedValue);
+                this.subTitleFontTransition.updateProperty(1 - _normalizedValue);
+            }
+
+            this.lastScrollValue = _scrollTop;
+            this.header.nativeElement.firstElementChild.style.opacity = this.opacitiyValue;
+            if(this.opacitiyValue > 0){
+                this.showFixedHeader = false;
+            }
+        } else {
+            this.resetProperties();
+        }
+    }
+
+    /**
+     * 
+     */
+    private createTransitions(): void {
+        this.widthTransition = new WidthTransition(this.titleAdjuster, 20, 50);
+        this.titleColorTransition = new ColorTransition(this.titleElement, 0, 0);
+        this.titleFontTransition = new FontTransition(this.titleElement, 18, 25);
+        this.buttonColorTransition = new ColorTransition(this.backButtonElement, 0, 0);
+        this.buttonFontTransition = new FontTransition(this.backButtonElement, 18, 24);
+        this.buttonTopTransition = new TopTransition(this.backButtonElement, this.imageHeight, this.imageHeight + 200);
+
+        if(this.subTitle != null){
+            console.log(this.subTitleElement);
+            this.subTitleColorTransition = new ColorTransition(this.subTitleElement, 0, 0);
+            this.subTitleFontTransition = new FontTransition(this.subTitleElement, 16, 20);
+        }
+    }
+    
+    /**
+     * 
+     */
+    private resetProperties(): void {
+        this.header.nativeElement.firstElementChild.style.opacity = 1;
+        this.widthTransition.resetProperty();
+        this.titleColorTransition.resetProperty();
+        this.titleFontTransition.resetProperty();
+        this.buttonColorTransition.resetProperty();
+        this.buttonFontTransition.resetProperty();
+        
+        if(this.subTitle != null){
+            this.subTitleColorTransition.resetProperty();
+            this.subTitleFontTransition.resetProperty();
+        }
+    }
+
+    /*
+    private fontTranstition(_normalizedValue: number, _element: any, _min: number, _max: number): void{
+        let _value: number = _normalizedValue * (Math.abs(_min - _max)) + _min;
+
+        _element.nativeElement.style.fontSize = _value + 'px';
+    }
+    */
+    /*
     private backButtonTransition(_scrollValue: number): void{
         let _maxScroll: number = this.imageHeight + 200;
         let _minScroll: number = 0;
         let _value: number = (Math.abs(_scrollValue - _minScroll))/(Math.abs(_maxScroll - _minScroll));
-
         let _min: number = (this.imageHeight * 0.1);
+        console.log(_min);
         let _max: number = this.imageHeight + 200;
+        console.log(_max);
         let _topValue: number = _value * (Math.abs(_min - _max)) + _min + 3;
+        //console.log(_topValue);
         this.backButton.nativeElement.style.top = _topValue + 'px';
             
 
     }
-
+    */
+    /*
     private titleTrasition(_normalizedValue: number): void {
         let _min: number = 20;
-        let _max: number = 60;
+        let _max: number = 50;
         let _widthValue: number = _normalizedValue * (Math.abs(_min - _max)) + _min;
         
         if(_widthValue >= _min && _widthValue <= _max)
             this.titleAdjuster.nativeElement.style.width = _widthValue + 'px';
     }
-
+    */
+    /*
     private colorTransition(_normalizedValue: number, _element: any): void {
         //rgb(255, 255, 255);
         //rgb(221, 74, 88);
@@ -139,5 +193,6 @@ export class HomePage {
             (_bValue >= _minB && _bValue <= _maxB))
             _element.nativeElement.style.color = 'rgb('+ Math.round(_rValue) +', '+ Math.round(_gValue) +', '+ Math.round(_bValue) +')';
     }
+    */
 
 }
