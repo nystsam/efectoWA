@@ -144,13 +144,13 @@ export class TopTransition extends Transition{
     constructor(_element: any, _min: number, _max: number) {
         super(_element, _min, _max);
         this.minAuxValue = _min;
-        this.smoothValue = 3;
+        this.smoothValue = 9;
     }
 
     public updateProperty(_value: number): void {
         this.minValue = 0;
         let _normalizedScrollValue: number = this.valueToNormalized(_value);
-        this.minValue = (this.minAuxValue * 0.1);
+        this.minValue = (this.minAuxValue * 0.05);
         
         let _topValue: number = this.normalizedToValue(_normalizedScrollValue);
         this.element.nativeElement.style.top = _topValue.toString() + 'px';

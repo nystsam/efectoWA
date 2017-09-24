@@ -25,6 +25,7 @@ page-home {
         width: 25px;
         height: 25px;
         left: 10px;
+        top: 10px;
         color: white;
         font-size: 24px;
         background-color: transparent;
@@ -43,7 +44,7 @@ page-home {
         color: #dd4a58;
         width: 25px;
         height: 25px;
-        top: 22px;
+        top: 19px;
         left: 10px;
         font-size: 18px;
         background-color: transparent;
@@ -89,13 +90,21 @@ page-home {
 
     .fixed-header .title h1{
         margin-left: 50px;
-        margin-top: 30.5px;
-        font-size: 18px;
+        margin-top: 17px;
+        font-size: 20px;
     }
 
     .fixed-header .title h2{
         margin-left: 50px;
-        margin-top: 10.5px;
+        margin-top: 9px;
         font-size: 16px;
+    }
+
+    .transition-header .title .no-sub-title{
+        margin-top: 10px !important;
+    }
+
+    .fixed-header .title .no-sub-title{
+        margin-top: 26px;
     }
 }

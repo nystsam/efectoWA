@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavParams } from 'ionic-angular';
 import { Transition, WidthTransition, ColorTransition, FontTransition, TopTransition } from './transition-classes/transitions';
 
 @Component({
@@ -13,15 +13,15 @@ export class HomePage {
 
 
 
-    @ViewChild('header') header;
+    @ViewChild('header') header: ElementRef;
 
-    @ViewChild('titleAdjusterElement') titleAdjuster;
+    @ViewChild('titleAdjusterElement') titleAdjuster: ElementRef;
 
-    @ViewChild('titleElement') titleElement;
+    @ViewChild('titleElement') titleElement: ElementRef;
 
     @ViewChild('subTitleElement') subTitleElement: ElementRef;
 
-    @ViewChild('backButtonElement') backButtonElement;
+    @ViewChild('backButtonElement') backButtonElement: ElementRef;
 
     public imageUrl: string; // input
 
@@ -47,7 +47,7 @@ export class HomePage {
     private subTitleFontTransition: Transition;
 
     constructor(
-        public navCtrl: NavController
+        public navParams: NavParams
     ) {
         this.subTitle = 'asd';
      }
@@ -55,7 +55,8 @@ export class HomePage {
     ionViewDidLoad(): void {
         this.imageHeight = this.header.nativeElement.firstElementChild.offsetWidth;
         this.header.nativeElement.firstElementChild.style.height = this.header.nativeElement.firstElementChild.offsetWidth + 'px';
-        this.imageUrl = 'url(../assets/public/profile.jpg)';
+        this.imageUrl = 'url(https://www.logogarden.com/wp-content/uploads/lg-index/Example-Logo-6.jpg)';
+        this.backButtonElement.nativeElement.style.top = (this.imageHeight * 0.08) + 'px';
 
         this.createTransitions();
 
@@ -70,7 +71,7 @@ export class HomePage {
      */
     private headerOpacity(_scrollTop: number): void {
         if( _scrollTop >= (this.imageHeight * 0.35)){
-            let _max: number = this.imageHeight - 80;
+            let _max: number = this.imageHeight - 65;
             let _min: number = Math.round(this.imageHeight * 0.35);
             let _normalizedValue: number = (Math.abs(_scrollTop - _min))/(Math.abs(_max - _min));
 
@@ -111,7 +112,7 @@ export class HomePage {
     private createTransitions(): void {
         this.widthTransition = new WidthTransition(this.titleAdjuster, 20, 50);
         this.titleColorTransition = new ColorTransition(this.titleElement, 0, 0);
-        this.titleFontTransition = new FontTransition(this.titleElement, 18, 25);
+        this.titleFontTransition = new FontTransition(this.titleElement, 20, 25);
         this.buttonColorTransition = new ColorTransition(this.backButtonElement, 0, 0);
         this.buttonFontTransition = new FontTransition(this.backButtonElement, 18, 24);
         this.buttonTopTransition = new TopTransition(this.backButtonElement, this.imageHeight, this.imageHeight + 200);
