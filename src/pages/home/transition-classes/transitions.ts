@@ -161,3 +161,26 @@ export class TopTransition extends Transition{
     }
 }
 
+/**
+ * 
+ */
+export class FilterTransition extends Transition{
+
+    constructor(_element: any, _min: number, _max: number) {
+        super(_element, _min, _max);
+    }
+
+    public updateProperty(_value: number): void {
+
+        let _filterValue: number = this.normalizedToValue(_value);
+        let _percentage: number = Math.round(100 - (_filterValue * 100));
+        this.element.nativeElement.style.filter = 'brightness(' + _percentage.toString() + '%) invert(' + _filterValue.toString() + ') contrast(100%)' ;
+    }
+
+    public resetProperty(): void {
+        this.element.nativeElement.style.filter = 'brightness(0%) invert(1) contrast(100%)';
+    }
+}
+
+
+

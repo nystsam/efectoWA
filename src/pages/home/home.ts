@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import { Transition, WidthTransition, ColorTransition, FontTransition, TopTransition } from './transition-classes/transitions';
+import { Transition, WidthTransition, ColorTransition, FontTransition, TopTransition, FilterTransition } from './transition-classes/transitions';
 
 @Component({
     selector: 'page-home',
@@ -21,6 +21,8 @@ export class HomePage {
 
     @ViewChild('subTitleElement') subTitleElement: ElementRef;
 
+    @ViewChild('subTitleImgElement') subTitleImgElement: ElementRef
+
     @ViewChild('backButtonElement') backButtonElement: ElementRef;
 
     public imageUrl: string; // input
@@ -28,6 +30,8 @@ export class HomePage {
     public title: string; // input
 
     public subTitle: string = null; // input
+
+    public subtitleImageUrl: string = null;
 
     public imageHeight: number = 0;
 
@@ -45,6 +49,7 @@ export class HomePage {
     private buttonTopTransition: Transition;
     private subTitleColorTransition: Transition;
     private subTitleFontTransition: Transition;
+    private subTitleImgFilterTransition: Transition;
 
     constructor(
         public navParams: NavParams
@@ -56,6 +61,7 @@ export class HomePage {
         this.imageHeight = this.header.nativeElement.firstElementChild.offsetWidth;
         this.header.nativeElement.firstElementChild.style.height = this.header.nativeElement.firstElementChild.offsetWidth + 'px';
         this.imageUrl = 'url(https://www.logogarden.com/wp-content/uploads/lg-index/Example-Logo-6.jpg)';
+        this.subtitleImageUrl = 'https://impressjob.blob.core.windows.net/job-position-icons/barista-rojo.png';
         this.backButtonElement.nativeElement.style.top = (this.imageHeight * 0.08) + 'px';
 
         this.createTransitions();
@@ -90,6 +96,7 @@ export class HomePage {
             this.titleFontTransition.updateProperty(1 - _normalizedValue);
             this.buttonColorTransition.updateProperty(1 - _normalizedValue);
             this.buttonFontTransition.updateProperty(1 - _normalizedValue);
+            this.subTitleImgFilterTransition.updateProperty(1 - _normalizedValue);
 
             if(this.subTitle != null){
                 this.subTitleColorTransition.updateProperty(1 - _normalizedValue);
@@ -118,9 +125,11 @@ export class HomePage {
         this.buttonTopTransition = new TopTransition(this.backButtonElement, this.imageHeight, this.imageHeight + 200);
 
         if(this.subTitle != null){
-            console.log(this.subTitleElement);
             this.subTitleColorTransition = new ColorTransition(this.subTitleElement, 0, 0);
             this.subTitleFontTransition = new FontTransition(this.subTitleElement, 16, 20);
+            if(this.subtitleImageUrl != null){
+                this.subTitleImgFilterTransition = new FilterTransition(this.subTitleImgElement, 0, 1);
+            }
         }
     }
     
@@ -138,6 +147,9 @@ export class HomePage {
         if(this.subTitle != null){
             this.subTitleColorTransition.resetProperty();
             this.subTitleFontTransition.resetProperty();
+            if(this.subtitleImageUrl != null){
+                this.subTitleImgFilterTransition.resetProperty();
+            }
         }
     }
 

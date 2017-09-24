@@ -15,7 +15,12 @@
       <div class="title">
         <div class="title-adjuster" #titleAdjusterElement></div>
         <h1 [ngClass]="{'no-sub-title': subTitle == null}" #titleElement>Nombre</h1>
-        <h2 *ngIf="subTitle != null" #subTitleElement>{{subTitle}}</h2>
+        <h2 [ngClass]="{'hide-sub-title': subTitle == null}"  #subTitleElement>
+          <span>
+            <img [src]="subtitleImageUrl" class="subtitle-image" [ngClass]="{'hide-sub-title': subtitleImageUrl == null}" #subTitleImgElement>
+          </span>
+          {{subTitle}}
+        </h2>
       </div>
     </div>
 
@@ -25,7 +30,12 @@
       </button>
       <div class="title">
         <h1 [ngClass]="{'no-sub-title': subTitle == null}">Nombre</h1>
-        <h2 *ngIf="subTitle != null">{{subTitle}}</h2>
+        <h2 [ngClass]="{'hide-sub-title': subTitle == null}">
+          <span>
+            <img [src]="subtitleImageUrl" class="subtitle-image" [ngClass]="{'hide-sub-title': subtitleImageUrl == null}">
+          </span>
+          {{subTitle}}
+        </h2>
       </div>
     </div>
   </div>

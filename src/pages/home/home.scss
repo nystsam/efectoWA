@@ -37,6 +37,7 @@ page-home {
         top: 0px;
         box-shadow: 0px 1px 5px #4b4b4b;
         background-color: #fff;
+        z-index: 999;
     }
 
     .fixed-header-back-button{
@@ -52,7 +53,7 @@ page-home {
 
     .transition-header{
         position: absolute;
-        top: 85%;
+        top: 84%;
         width: 100%;
     }
 
@@ -72,6 +73,10 @@ page-home {
     .transition-header .title h2{
         margin-top: 10px;
         font-size: 20px;
+    }
+
+    .transition-header .title h2 .subtitle-image{
+        filter: brightness(0%) invert(1) contrast(100%);
     }
 
     .fixed-header .title h2{
@@ -106,5 +111,15 @@ page-home {
 
     .fixed-header .title .no-sub-title{
         margin-top: 26px;
+    }
+
+    .hide-sub-title{
+        display: none;
+    }
+
+    .subtitle-image{
+        height: 25px;
+        width: 25px;
+        vertical-align: middle;
     }
 }
