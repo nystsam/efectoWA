@@ -8,23 +8,24 @@
     </div>
     <div class="header-image-bottom-line">
     </div>
-    <button class="transition-header-back-button" type="button" #backButtonElement> 
+    <button class="header-back-button" type="button" [ngStyle]="{'color': colorTransition.propertyValue, 'font-size': buttonFontTransition.propertyValue}"> 
       <ion-icon name="arrow-back" color="white"></ion-icon>
     </button>
-    <div class="transition-header">
+    <div class="transition-header" [ngStyle]="{'height': imageHeight * 0.2 + 'px'}">
+      <div class="transition-header-background" [ngStyle]="{'opacity': opacityTransition.propertyValue}"></div>
       <div class="title">
-        <div class="title-adjuster" #titleAdjusterElement></div>
-        <h1 [ngClass]="{'no-sub-title': subTitle == null}" #titleElement>Nombre</h1>
-        <h2 [ngClass]="{'hide-sub-title': subTitle == null}"  #subTitleElement>
+        <div class="title-adjuster" [ngStyle]="{'width': widthTransition.propertyValue}"></div>
+        <h1 [ngClass]="{'no-sub-title': subTitle == null}" [ngStyle]="{'color': colorTransition.propertyValue, 'font-size': titleFontTransition.propertyValue}">Nombre</h1>
+        <h2 [ngClass]="{'hide-sub-title': subTitle == null}" [ngStyle]="{'color': colorTransition.propertyValue, 'font-size': subTitleFontTransition.propertyValue}">
           <span>
-            <img [src]="subtitleImageUrl" class="subtitle-image" [ngClass]="{'hide-sub-title': subtitleImageUrl == null}" #subTitleImgElement>
+            <img [src]="subtitleImageUrl" class="subtitle-image" [ngClass]="{'hide-sub-title': subtitleImageUrl == null}" [ngStyle]="{'filter': subTitleImgFilterTransition.propertyValue}">
           </span>
           {{subTitle}}
         </h2>
       </div>
     </div>
-
-    <div class="fixed-header" [ngStyle]="{'height': imageHeight * 0.20 + 'px'}" *ngIf="showFixedHeader">
+    <!--
+    <div class="fixed-header" [ngStyle]="{'height': imageHeight * 0.20 + 'px'}">
       <button class="fixed-header-back-button" type="button"> 
         <ion-icon name="arrow-back" color="white"></ion-icon>
       </button>
@@ -38,7 +39,9 @@
         </h2>
       </div>
     </div>
+    -->
   </div>
+
 
   <!--
   <div class="container-info" *ngIf="!showFixedHeader">

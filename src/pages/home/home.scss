@@ -20,17 +20,81 @@ page-home {
         background-color: rgba(133, 131, 131, 0.73);
     }
 
-    .transition-header-back-button{
-        position: absolute;
+    .header-back-button{
+        position: fixed;
         width: 25px;
         height: 25px;
         left: 10px;
         top: 10px;
-        color: white;
+        color: #fff;
         font-size: 24px;
         background-color: transparent;
+        z-index: 1;
     }
 
+    .hide-sub-title{
+        display: none;
+    }
+
+    .subtitle-image{
+        height: 25px;
+        width: 25px;
+        vertical-align: middle;
+    }
+
+    .transition-header{
+        position: absolute;
+        top: 80%;
+        width: 100%;
+    }
+
+    .transition-header-background{
+        height: 100%;
+        width: 100%;
+        background-color: #fff;
+        position: absolute;
+        opacity: 0;
+    }
+
+    .transition-header .title .no-sub-title{
+        margin-top: 10px !important;
+    }
+
+    .transition-header .title h2 .subtitle-image{
+        filter: brightness(0%) invert(1) contrast(100%);
+    }
+
+    .transition-header .title h1, .transition-header .title h2{
+        color: #fff;
+    }
+
+    .transition-header .title .title-adjuster{
+        width: 20px;
+        float: left;
+        height: 40px;
+        transform: 5ms;
+    }
+
+    .transition-header .title{
+        width: 100%;
+        margin-top: 22px;
+        position: relative;
+    }
+
+    .transition-header .title h1, .transition-header .title h2{
+        margin: 0;
+        color: #dd4a58;
+        line-height: 0.5;
+        font-size: 25px;
+        text-overflow: ellipsis; 
+        width: 100%;
+    }
+
+    .transition-header .title h2{
+        margin-top: 10px;
+        font-size: 20px;
+    }
+    /*
     .fixed-header{
         width: 100%;
         position: fixed;
@@ -51,46 +115,8 @@ page-home {
         background-color: transparent;
     }
 
-    .transition-header{
-        position: absolute;
-        top: 84%;
-        width: 100%;
-    }
-
-    .transition-header .title, .fixed-header .title{
-        width: 100%;
-    }
-
-    .transition-header .title h1, .transition-header .title h2, .fixed-header .title h1, .fixed-header .title h2{
-        margin: 0;
-        color: #dd4a58;
-        line-height: 0.5;
-        font-size: 25px;
-        text-overflow: ellipsis; 
-        width: 100%;
-    }
-
-    .transition-header .title h2{
-        margin-top: 10px;
-        font-size: 20px;
-    }
-
-    .transition-header .title h2 .subtitle-image{
-        filter: brightness(0%) invert(1) contrast(100%);
-    }
-
     .fixed-header .title h2{
         font-size:  16px;
-    }
-
-    .transition-header .title h1, .transition-header .title h2{
-        color: #fff;
-    }
-
-    .transition-header .title .title-adjuster{
-        width: 20px;
-        float: left;
-        height: 40px;
     }
 
     .fixed-header .title h1{
@@ -105,21 +131,9 @@ page-home {
         font-size: 16px;
     }
 
-    .transition-header .title .no-sub-title{
-        margin-top: 10px !important;
-    }
-
     .fixed-header .title .no-sub-title{
         margin-top: 26px;
     }
-
-    .hide-sub-title{
-        display: none;
-    }
-
-    .subtitle-image{
-        height: 25px;
-        width: 25px;
-        vertical-align: middle;
-    }
+    */
+    
 }

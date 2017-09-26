@@ -3,16 +3,13 @@
  */
 export abstract class Transition{
 
-    protected element: any;
-
     protected minValue: number = 0;
 
     protected maxValue: number = 0;
 
-    protected smoothValue: number = 0;
+    public propertyValue: string = '';
 
-    constructor(_elment: any, _min: number, _max: number) {
-        this.element = _elment;
+    constructor(_min: number, _max: number) {
         this.minValue = _min;
         this.maxValue = _max;
     }
@@ -40,7 +37,7 @@ export abstract class Transition{
      * @param _normalized current normalized value.
      */
     public normalizedToValue(_normalized: number): number {
-        return _normalized * (Math.abs(this.minValue - this.maxValue)) + this.minValue + this.smoothValue;
+        return _normalized * (Math.abs(this.minValue - this.maxValue)) + this.minValue;
     }
 
 }
@@ -50,21 +47,38 @@ export abstract class Transition{
  */
 export class WidthTransition extends Transition{
     
-    constructor(_element: any, _min: number, _max: number) {
-        super(_element, _min, _max);
+    constructor(_min: number, _max: number) {
+        super(_min, _max);
     }
 
     public updateProperty(_value: number): void {
         let _widthValue: number = this.normalizedToValue(_value);
         
         if(_widthValue >= this.minValue && _widthValue <= this.maxValue)
-            this.element.nativeElement.style.width = _widthValue.toString() + 'px';
+            this.propertyValue = _widthValue.toString() + 'px';
     }
 
     public resetProperty(): void {
-        this.element.nativeElement.style.width = this.minValue.toString() + 'px';
+        this.propertyValue = this.minValue.toString() + 'px';
     }
 
+}
+
+export class OpacityTransition extends Transition{
+
+    constructor(_min: number, _max: number) {
+        super(_min, _max);
+    }
+
+    public updateProperty(_value: number): void {
+        let _opacityValue: number = this.normalizedToValue(_value);
+        if(_opacityValue >= this.minValue && _opacityValue <= this.maxValue)
+            this.propertyValue = _opacityValue.toString();
+    }
+
+    public resetProperty(): void {
+        this.propertyValue = this.minValue.toString();
+    }
 }
 
 /**
@@ -84,8 +98,8 @@ export class ColorTransition extends Transition{
         minB: 88,
     };
 
-    constructor(_element: any, _min: number, _max: number) {
-        super(_element, _min, _max);
+    constructor(_min: number, _max: number) {
+        super(_min, _max);
     }
 
     public updateProperty(_value: number): void {
@@ -105,59 +119,33 @@ export class ColorTransition extends Transition{
         if( (_rValue >= this.minColor.minR && _rValue <= this.maxColor.maxR) && 
             (_gValue >= this.minColor.minG && _gValue <= this.maxColor.maxG) && 
             (_bValue >= this.minColor.minB && _bValue <= this.maxColor.maxB))
-                this.element.nativeElement.style.color = 'rgb('+ Math.round(_rValue) +', '+ Math.round(_gValue) +', '+ Math.round(_bValue) +')';
+                this.propertyValue = 'rgb('+ Math.round(_rValue) +', '+ Math.round(_gValue) +', '+ Math.round(_bValue) +')';
     }
 
     public resetProperty(): void {
-        this.element.nativeElement.style.color = 'rgb('+ this.maxColor.maxR + ', '+ this.maxColor.maxG +', '+ this.maxColor.maxB +')';
+        this.propertyValue = 'rgb('+ this.maxColor.maxR + ', '+ this.maxColor.maxG +', '+ this.maxColor.maxB +')';
     }
 }
+
 
 /**
  * 
  */
 export class FontTransition extends Transition{
     
-    constructor(_element: any, _min: number, _max: number) {
-        super(_element, _min, _max);
+    constructor(_min: number, _max: number) {
+        super(_min, _max);
     }
 
     public updateProperty(_value: number): void {
 
         let _size: number = this.normalizedToValue(_value);
-
-        this.element.nativeElement.style.fontSize = _size.toString() + 'px';
+        if(_size >= this.minValue && _size <= this.maxValue)
+            this.propertyValue = _size.toString() + 'px';
     }
 
     public resetProperty(): void {
-        this.element.nativeElement.style.fontSize = this.maxValue.toString() + 'px';
-    }
-}
-
-/**
- * 
- */
-export class TopTransition extends Transition{
-
-    private minAuxValue: number = 0;
-
-    constructor(_element: any, _min: number, _max: number) {
-        super(_element, _min, _max);
-        this.minAuxValue = _min;
-        this.smoothValue = 9;
-    }
-
-    public updateProperty(_value: number): void {
-        this.minValue = 0;
-        let _normalizedScrollValue: number = this.valueToNormalized(_value);
-        this.minValue = (this.minAuxValue * 0.05);
-        
-        let _topValue: number = this.normalizedToValue(_normalizedScrollValue);
-        this.element.nativeElement.style.top = _topValue.toString() + 'px';
-    }
-
-    public resetProperty(): void {
-        console.warn('TopTransition: Method "resetProperty" not implemented.')
+        this.propertyValue = this.maxValue.toString() + 'px';
     }
 }
 
@@ -166,19 +154,19 @@ export class TopTransition extends Transition{
  */
 export class FilterTransition extends Transition{
 
-    constructor(_element: any, _min: number, _max: number) {
-        super(_element, _min, _max);
+    constructor( _min: number, _max: number) {
+        super(_min, _max);
     }
 
     public updateProperty(_value: number): void {
 
         let _filterValue: number = this.normalizedToValue(_value);
         let _percentage: number = Math.round(100 - (_filterValue * 100));
-        this.element.nativeElement.style.filter = 'brightness(' + _percentage.toString() + '%) invert(' + _filterValue.toString() + ') contrast(100%)' ;
+        this.propertyValue = 'brightness(' + _percentage.toString() + '%) invert(' + _filterValue.toString() + ') contrast(100%)' ;
     }
 
     public resetProperty(): void {
-        this.element.nativeElement.style.filter = 'brightness(0%) invert(1) contrast(100%)';
+        this.propertyValue = 'brightness(0%) invert(1) contrast(100%)';
     }
 }
 
