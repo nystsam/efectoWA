@@ -1,6 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavParams } from 'ionic-angular';
-import { Transition, WidthTransition, OpacityTransition, ColorTransition, FontTransition, FilterTransition } from './transition-classes/transitions';
+import { Transition, WidthTransition, ColorTransition, FontTransition, FilterTransition } from './transition-classes/transitions';
 
 @Component({
     selector: 'page-home',
@@ -29,7 +29,6 @@ export class HomePage {
     private lastScrollValue: number = 0;
 
     private widthTransition: Transition;
-    private opacityTransition: Transition;
     private colorTransition: Transition;
     private titleFontTransition: Transition;
     private buttonFontTransition: Transition;
@@ -78,13 +77,6 @@ export class HomePage {
             }
             
             this.widthTransition.updateProperty(_normalizedValue);
-            /*
-            if(_scrollTop >= (this.imageHeight * 0.65)){
-                this.opacityTransition.updateProperty(_normalizedValue);
-            } else{
-                this.opacityTransition.resetProperty();
-            }
-            */
             this.colorTransition.updateProperty(1 - _normalizedValue);
             this.titleFontTransition.updateProperty(1 - _normalizedValue);
             this.buttonFontTransition.updateProperty(1 - _normalizedValue);
@@ -114,7 +106,6 @@ export class HomePage {
         }
 
         this.widthTransition = new WidthTransition(20, 50);
-        this.opacityTransition = new OpacityTransition(0, 1);
         this.colorTransition = new ColorTransition(0, 0);
         this.titleFontTransition = new FontTransition(_minTitleFont, _maxTitleFont);
         this.buttonFontTransition = new FontTransition(18, 24);

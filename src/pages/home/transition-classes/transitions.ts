@@ -64,23 +64,6 @@ export class WidthTransition extends Transition{
 
 }
 
-export class OpacityTransition extends Transition{
-
-    constructor(_min: number, _max: number) {
-        super(_min, _max);
-    }
-
-    public updateProperty(_value: number): void {
-        let _opacityValue: number = this.normalizedToValue(_value);
-        if(_opacityValue >= this.minValue && _opacityValue <= this.maxValue)
-            this.propertyValue = _opacityValue.toString();
-    }
-
-    public resetProperty(): void {
-        this.propertyValue = this.minValue.toString();
-    }
-}
-
 /**
  * 
  */
