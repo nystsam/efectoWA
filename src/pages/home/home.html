@@ -6,13 +6,13 @@
                                           rgba(0,0,0,0) 75%,rgba(0,0,0,0.18) 90%,
                                           rgba(0,0,0,0.22) 100%), '+ imageUrl + ' 100% 100% / cover no-repeat'}">
     </div>
-    <div class="header-image-bottom-line">
+    <div class="header-image-bottom-line" *ngIf="!allowFixedHeader">
     </div>
     <button class="header-back-button" type="button" [ngStyle]="{'color': colorTransition.propertyValue, 'font-size': buttonFontTransition.propertyValue}"> 
       <ion-icon name="arrow-back" color="white"></ion-icon>
     </button>
-    <div class="transition-header" [ngStyle]="{'height': imageHeight * 0.2 + 'px'}">
-      <div class="transition-header-background" [ngStyle]="{'opacity': opacityTransition.propertyValue}"></div>
+    <div class="transition-header" [ngClass]="{'fixed-header': allowFixedHeader}" [ngStyle]="{'height': imageHeight * 0.2 + 'px'}">
+      <div class="header-background" [ngStyle]="{'opacity': opacityTransition.propertyValue}"></div>
       <div class="title">
         <div class="title-adjuster" [ngStyle]="{'width': widthTransition.propertyValue}"></div>
         <h1 [ngClass]="{'no-sub-title': subTitle == null}" [ngStyle]="{'color': colorTransition.propertyValue, 'font-size': titleFontTransition.propertyValue}">Nombre</h1>

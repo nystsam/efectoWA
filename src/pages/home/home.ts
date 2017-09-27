@@ -22,7 +22,7 @@ export class HomePage {
 
     public imageHeight: number = 0;
 
-    public showFixedHeader: boolean = false;
+    public allowFixedHeader: boolean = false;
 
     private opacitiyValue: number = 0;
 
@@ -68,20 +68,23 @@ export class HomePage {
                 this.opacitiyValue = 1 - _normalizedValue;
                 if(this.opacitiyValue <= 0){
                     this.opacitiyValue = 0;
-                    this.showFixedHeader = true;
+                    this.allowFixedHeader = true;
                 }
             } else{
                 this.opacitiyValue =  0 + (1 - _normalizedValue);
-                
+                if(this.opacitiyValue > 0){
+                    this.allowFixedHeader = false;
+                }
             }
             
             this.widthTransition.updateProperty(_normalizedValue);
-            if(_scrollTop >= (this.imageHeight * 0.75))
+            /*
+            if(_scrollTop >= (this.imageHeight * 0.65)){
                 this.opacityTransition.updateProperty(_normalizedValue);
-            else{
+            } else{
                 this.opacityTransition.resetProperty();
             }
-            
+            */
             this.colorTransition.updateProperty(1 - _normalizedValue);
             this.titleFontTransition.updateProperty(1 - _normalizedValue);
             this.buttonFontTransition.updateProperty(1 - _normalizedValue);
@@ -93,9 +96,6 @@ export class HomePage {
 
             this.lastScrollValue = _scrollTop;
             this.header.nativeElement.firstElementChild.style.opacity = this.opacitiyValue;
-            if(this.opacitiyValue > 0){
-                this.showFixedHeader = false;
-            }
         } else {
             this.resetProperties();
         }
@@ -105,18 +105,21 @@ export class HomePage {
      * 
      */
     private createTransitions(): void {
+        let _maxTitleFont: number = 25;
+        let _minTitleFont: number = 20;
+
+        if(this.subTitle == null){
+            _maxTitleFont = 27;
+            _minTitleFont = 22;
+        }
+
         this.widthTransition = new WidthTransition(20, 50);
         this.opacityTransition = new OpacityTransition(0, 1);
         this.colorTransition = new ColorTransition(0, 0);
-        this.titleFontTransition = new FontTransition(20, 25);
+        this.titleFontTransition = new FontTransition(_minTitleFont, _maxTitleFont);
         this.buttonFontTransition = new FontTransition(18, 24);
-
-        if(this.subTitle != null){
-            this.subTitleFontTransition = new FontTransition(16, 20);
-            if(this.subtitleImageUrl != null){
-                this.subTitleImgFilterTransition = new FilterTransition(0, 1);
-            }
-        }
+        this.subTitleFontTransition = new FontTransition(16, 20);
+        this.subTitleImgFilterTransition = new FilterTransition(0, 1);
     }
     
     /**

@@ -25,7 +25,7 @@ page-home {
         width: 25px;
         height: 25px;
         left: 10px;
-        top: 10px;
+        top: 18px;
         color: #fff;
         font-size: 24px;
         background-color: transparent;
@@ -48,7 +48,7 @@ page-home {
         width: 100%;
     }
 
-    .transition-header-background{
+    .header-background{
         height: 100%;
         width: 100%;
         background-color: #fff;
@@ -57,15 +57,11 @@ page-home {
     }
 
     .transition-header .title .no-sub-title{
-        margin-top: 10px !important;
+        margin-top: 35px !important;
     }
 
     .transition-header .title h2 .subtitle-image{
         filter: brightness(0%) invert(1) contrast(100%);
-    }
-
-    .transition-header .title h1, .transition-header .title h2{
-        color: #fff;
     }
 
     .transition-header .title .title-adjuster{
@@ -83,7 +79,7 @@ page-home {
 
     .transition-header .title h1, .transition-header .title h2{
         margin: 0;
-        color: #dd4a58;
+        color: #fff;
         line-height: 0.5;
         font-size: 25px;
         text-overflow: ellipsis; 
@@ -93,6 +89,16 @@ page-home {
     .transition-header .title h2{
         margin-top: 10px;
         font-size: 20px;
+    }
+
+    .fixed-header{
+        position: fixed !important;
+        top: -10px;
+        box-shadow: 0px 1px 2px #4b4b4b;
+    }
+
+    .fixed-header .header-background{
+        opacity: 1 !important;
     }
     /*
     .fixed-header{
